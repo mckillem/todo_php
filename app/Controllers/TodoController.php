@@ -3,21 +3,21 @@
 namespace App\Controllers;
 
 use app\Models\Todo;
+use ReflectionClass;
 
-class TodoController extends Controller
+class TodoController
 {
 	public function __construct(
-//		string $view = "",
-//		array $data = array(),
+		private string $view = "",
 	)
-	{
-//		parent::__construct($view, $data);
-	}
+	{}
 
-	public function index(array $parsedUrl): void
+	public function index(): void
 	{
 		$this->addTodo();
 		$this->view = 'index';
+
+		$this->renderView();
 	}
 
 	public function getAllTodos(): bool|array
@@ -41,9 +41,20 @@ class TodoController extends Controller
 			$todoManager = new Todo();
 
 			$todoManager->saveTodo($_POST['todo_id'], $todo);
+		}
+	}
 
-//			$this->data['todo'] = $todo;
-//		$this->presenter = 'editor';
+	public function renderView(): void
+	{
+		if ($this->view) {
+			// Nemůžeme použít funkci pro zjištění namespace protože by vrátila ten abstraktního kontroleru
+			$reflect = new ReflectionClass(get_class($this));
+
+			$path = str_replace('Controllers', 'Views', str_replace('\\', '/', $reflect->getNamespaceName()));
+			$controllerName = str_replace('Controller', '', $reflect->getShortName());
+			$path = '../a' . ltrim($path, 'A') . '/' . $controllerName . '/' . $this->view . '.phtml';
+
+			require($path);
 		}
 	}
 }
