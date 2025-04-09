@@ -7,7 +7,7 @@ use PDOException;
 
 class Db
 {
-//	todo: proč statika?
+//	todo: proč statika? abych se vyhl nutnosti použit konstruktor?
 	private static PDO $connection;
 
 //	todo: k čemu?
@@ -43,7 +43,7 @@ class Db
 		return $sql->fetchAll(self::$connection::FETCH_ASSOC);
 	}
 
-	public function saveTodo(array $todo)
+	public function saveTodo(array $todo): void
 	{
 		try {
 			$sql = self::$connection->prepare(
@@ -58,5 +58,12 @@ class Db
 		} catch(PDOException $e) {
 			echo "<br>" . $e->getMessage();
 		}
+	}
+
+	public function deleteTodo(string $id): void
+	{
+//		$sql = self::$connection->prepare('DELETE FROM todo WHERE todo_id = ?');
+		$sql = self::$connection->prepare('DELETE FROM todo WHERE todo_id = ?');
+		$sql->execute(array($id));
 	}
 }

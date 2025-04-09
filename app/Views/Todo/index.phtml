@@ -14,16 +14,19 @@
         <article>
             <section>
                 <h1>Úkolovník</h1>
+                <?php var_dump($this->getAllTodos()); ?>
                 <ul>
                     <?php foreach($this->getAllTodos() as $todo): ?>
-                        <?php foreach($todo as $t): ?>
-<!--                            <li>--><?php //= $t; ?><!--</li><button onclick="" --><?php //= $this->deleteTodo($t) ?><!-->Smazat</button>-->
-                            <li><?= $t; ?></li><button>Smazat</button>
-                        <?php endforeach; ?>
+                        <li><?= $todo['text']; ?></li>
+<!--                        <li>--><?php //= $todo['text']; ?><!--<button onclick="--><?php //= $this->deleteTodo($todo['todo_id']) ?><!--">Smazat</button></li>-->
+
+<!--                        <a href="delete.php?id=--><?php //=$todo['todo_id']?><!--" class="trash"><i class="fas fa-trash fa-xs"></i></a>-->
+                        <a href="delete.php?id=<?=$todo['todo_id']?>" class="trash"><i class="fas fa-trash fa-xs">Smazat</i></a>
+
                     <?php endforeach; ?>
                 </ul>
-
                 <form method="post">
+                    <input type="hidden" name="todo_id" value="<?php if (isset($_POST['text'])) echo(htmlspecialchars($_POST['text'])); ?>" />
 <!--                    <input type="hidden" name="todo_id" value="--><?php //= $todo['todo_id'] ?><!--" />-->
 <!--                    <input type="hidden" name="todo_id" />-->
                     <label>

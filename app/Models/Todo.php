@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use PDO;
-use PDOException;
-
 class Todo
 {
 	public function getAllTodos(): bool|array
@@ -28,6 +25,7 @@ class Todo
 
 	public function deleteTodo(string $id): void
 	{
-		Db::query('DELETE FROM todo WHERE todo_id = ?', array($id));
+		$db = new Db();
+		$db->deleteTodo($id);
 	}
 }
