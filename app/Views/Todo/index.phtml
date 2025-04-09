@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="cs-cz">
     <head>
-        <base href="http://<?= $domain ?>" />
+<!--        <base href="http://--><?php //= $domain ?><!--" />-->
         <meta charset="UTF-8" />
-        <title><?= $title ?></title>
-        <meta name="description" content="<?= $description ?>" />
-        <meta name="keywords" content="<?= $keywords ?>" />
+<!--        <title>--><?php //= $title ?><!--</title>-->
+<!--        <meta name="description" content="--><?php //= $description ?><!--" />-->
+<!--        <meta name="keywords" content="--><?php //= $keywords ?><!--" />-->
         <link rel="stylesheet" href="css/style.css" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
@@ -14,23 +14,24 @@
         <article>
             <section>
                 <h1>Úkolovník</h1>
-                <table>
+                <ul>
                     <?php foreach($this->getAllTodos() as $todo): ?>
                         <?php foreach($todo as $t): ?>
-                            <tr>
-                                <td><?= $t; ?></td>
-                            </tr>
+<!--                            <li>--><?php //= $t; ?><!--</li><button onclick="" --><?php //= $this->deleteTodo($t) ?><!-->Smazat</button>-->
+                            <li><?= $t; ?></li><button>Smazat</button>
                         <?php endforeach; ?>
                     <?php endforeach; ?>
-                </table>
+                </ul>
 
                 <form method="post">
 <!--                    <input type="hidden" name="todo_id" value="--><?php //= $todo['todo_id'] ?><!--" />-->
-                    <input type="hidden" name="todo_id" />
+<!--                    <input type="hidden" name="todo_id" />-->
                     <label>
                         Nový úkol<br />
+                        <input type="text" name="text" required="required" value="<?php if (isset($_POST['text'])) echo(htmlspecialchars($_POST['text'])); ?>" />
+
 <!--                        <input type="text" name="text" required="required" value="--><?php //= $todo['text'] ?><!--" />-->
-                        <input type="text" name="text" required="required" />
+<!--                        <input type="text" name="text" required="required" />-->
                     </label><br />
                     <input type="submit" value="Přidat" />
                 </form>
