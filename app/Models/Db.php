@@ -43,20 +43,38 @@ class Db
 		return $sql->fetchAll(self::$connection::FETCH_ASSOC);
 	}
 
-	public function saveTodo(array $todo): void
+	public function saveTodo(array $todo, ?string $id = null): void
 	{
-		try {
-			$sql = self::$connection->prepare(
-				"insert into todo set
-            text = :text"
-			);
-			$sql->execute(array(
-				':text' => $todo['text']
-			));
+		if ($id)
+		{
+			try {
+				$sql = self::$connection->prepare(
+					"update todo set
+            text = :text WHERE todo_id = :todo_id"
+				);
+				$sql->execute(array(
+					':text' => $todo['text'],
+					':todo_id' => $id
+				));
 
-			echo "New record created successfully";
-		} catch(PDOException $e) {
-			echo "<br>" . $e->getMessage();
+				echo "New record created successfully";
+			} catch(PDOException $e) {
+				echo "<br>" . $e->getMessage();
+			}
+		} else {
+			try {
+				$sql = self::$connection->prepare(
+					"insert into todo set
+            text = :text"
+				);
+				$sql->execute(array(
+					':text' => $todo['text']
+				));
+
+				echo "New record created successfully";
+			} catch(PDOException $e) {
+				echo "<br>" . $e->getMessage();
+			}
 		}
 	}
 

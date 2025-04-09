@@ -14,14 +14,11 @@
         <article>
             <section>
                 <h1>Úkolovník</h1>
-                <?php var_dump($this->getAllTodos()); ?>
                 <ul>
                     <?php foreach($this->getAllTodos() as $todo): ?>
                         <li><?= $todo['text']; ?></li>
-<!--                        <li>--><?php //= $todo['text']; ?><!--<button onclick="--><?php //= $this->deleteTodo($todo['todo_id']) ?><!--">Smazat</button></li>-->
-
-<!--                        <a href="delete.php?id=--><?php //=$todo['todo_id']?><!--" class="trash"><i class="fas fa-trash fa-xs"></i></a>-->
-                        <a href="delete.php?id=<?=$todo['todo_id']?>" class="trash"><i class="fas fa-trash fa-xs">Smazat</i></a>
+                        <a href="?id=<?=$todo['todo_id']?>&action=delete" class="trash"><i class="fas fa-trash fa-xs">Smazat</i></a>
+                        <a href="?id=<?=$todo['todo_id']?>&action=update" class="trash"><i class="fas fa-trash fa-xs">Upravit</i></a>
 
                     <?php endforeach; ?>
                 </ul>

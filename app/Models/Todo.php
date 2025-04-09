@@ -15,12 +15,11 @@ class Todo
 	public function saveTodo(array $todo): void
 	{
 		$db = new Db();
-		$db->saveTodo($todo);
 
-//		if (!$id)
-//			Db::insert('todo', $todo);
-//		else
-//			Db::update('todo', $todo, 'WHERE todo_id = ?', array($id));
+		if (!$todo['todo_id'])
+			$db->saveTodo($todo);
+		else
+			$db->saveTodo($todo, $todo['todo_id']);
 	}
 
 	public function deleteTodo(string $id): void

@@ -14,7 +14,19 @@ class TodoController
 
 	public function index(): void
 	{
-		$this->addTodo();
+		var_dump($_GET);
+		if (isset($_GET['id']) && $_GET['id'])
+		{
+			if ($_GET['action'] == 'delete')
+			{
+				$this->delete($_GET['id']);
+			} elseif ($_GET['action'] == 'edit')
+			{
+				$this->addTodo($_GET['id']);
+			}
+		} else {
+			$this->addTodo();
+		}
 		$this->view = 'index';
 
 		$this->renderView();
@@ -27,19 +39,28 @@ class TodoController
 		return $todoManager->getAllTodos();
 	}
 
-	public function addTodo(): void
+	public function addTodo(?string $id = null): void
 	{
+		$todoManager = new Todo();
+
 		if ($_POST) {
-			$todoManager = new Todo();
-			$todoManager->saveTodo($_POST);
+//			if ($id) {
+				$todoManager->saveTodo($_POST);
+//			}
 		}
 	}
 
-	public function deleteTodo(string $id): void
+	public function delete(string $id): void
 	{
 		$todoManager = new Todo();
 		$todoManager->deleteTodo($id);
 	}
+
+//	public function update(string $id): void
+//	{
+//		$todoManager = new Todo();
+//		$todoManager->updateTodo($id);
+//	}
 
 	public function renderView(): void
 	{
