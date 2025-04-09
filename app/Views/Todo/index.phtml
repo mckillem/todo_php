@@ -1,11 +1,37 @@
-<section>
-	<h1>Úkolovník</h1>
+<!DOCTYPE html>
+<html lang="cs-cz">
+    <head>
+        <base href="http://<?= $domain ?>" />
+        <meta charset="UTF-8" />
+        <title><?= $title ?></title>
+        <meta name="description" content="<?= $description ?>" />
+        <meta name="keywords" content="<?= $keywords ?>" />
+        <link rel="stylesheet" href="css/style.css" type="text/css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
 
-    <form method="post" id="form-todo">
-        <label>
-            Nový úkol<br />
-            <input type="text" name="text" required="required" value="<?php if (isset($_POST['text'])) echo(htmlspecialchars($_POST['text'])); ?>" />
-        </label><br />
-        <input type="submit" value="Přidat" />
-    </form>
-</section>
+    <body>
+        <article>
+            <section>
+                <h1>Úkolovník</h1>
+                <table>
+                    <?php foreach($this->getAllTodos() as $todo): ?>
+                        <?php foreach($todo as $t): ?>
+                            <tr>
+                                <td><?= $t; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </table>
+                <form method="post">
+                    <input type="hidden" name="todo_id" value="<?= $todo['todo_id'] ?>" />
+                    <label>
+                        Nový úkol<br />
+                        <input type="text" name="text" required="required" value="<?= $todo['text'] ?>" />
+                    </label><br />
+                    <input type="submit" value="Přidat" />
+                </form>
+            </section>
+        </article>
+    </body>
+</html>

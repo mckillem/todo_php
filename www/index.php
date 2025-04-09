@@ -1,19 +1,11 @@
 <?php
 
-use App\Controllers\RouterController;
+use app\Models\Db;
 
-function autoloader($class): void
-{
-	if (mb_strpos($class, 'App\\') !== false)
-		$class = 'a' . ltrim($class, 'A');
-	$path = str_replace('\\', '/', $class) . '.php';
-	if (file_exists('../' . $path))
-		include('../' . $path);
-}
+require ('Autoloader.php');
 
-spl_autoload_register("autoloader");
+Autoloader::register();
 
-$router = new RouterController();
-$router->index(array($_SERVER['REQUEST_URI']));
-
-$router->renderView();
+//$db = new Db();
+//$db->connect("database", "test", "test", "todo_php_db");
+Db::connect("database", "test", "test", "todo_php_db");
