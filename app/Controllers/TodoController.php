@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use app\Models\Todo;
+use App\Models\Todo;
 use ReflectionClass;
 
 class TodoController

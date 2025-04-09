@@ -1,13 +1,16 @@
 <?php
 
-namespace app\Models;
+namespace App\Models;
 
 use PDO;
+use PDOException;
 
 class Db
 {
+//	todo: proč statika?
 	private static PDO $connection;
 
+//	todo: k čemu?
 	private static array $settings = array(
 		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 		PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
@@ -26,28 +29,34 @@ class Db
 		}
 	}
 
-	public static function queryAll(string $query, array $parameters = array()): array|bool
+	public function getAllTodos(): array
 	{
-		$statement = self::$connection->prepare($query);
-		$statement->execute($parameters);
+		$sql = self::$connection->prepare(
+			'
+			SELECT `todo_id`, `text`
+			FROM `todo`
+			ORDER BY `todo_id` DESC
+		'
+		);
+		$sql->execute();
 
-//		return $statement->fetchAll(self::$connection::FETCH_CLASS);
-		return $statement->fetchAll(self::$connection::FETCH_ASSOC);
+		return $sql->fetchAll(self::$connection::FETCH_ASSOC);
 	}
 
-	public static function query(string $query, array $parameters = array()): int
+	public function saveTodo(array $todo)
 	{
-		$statement = self::$connection->prepare($query);
-		$statement->execute($parameters);
+		try {
+			$sql = self::$connection->prepare(
+				"insert into todo set
+            text = :text"
+			);
+			$sql->execute(array(
+				':text' => $todo['text']
+			));
 
-		return $statement->rowCount();
-	}
-
-	public static function insert(string $table, array $parameters = array()): bool
-	{
-		return self::query("INSERT INTO `$table` (`" .
-			implode('`, `', array_keys($parameters)) .
-			"`) VALUES (" . str_repeat('?,', sizeOf($parameters) - 1) . "?)",
-			array_values($parameters));
+			echo "New record created successfully";
+		} catch(PDOException $e) {
+			echo "<br>" . $e->getMessage();
+		}
 	}
 }

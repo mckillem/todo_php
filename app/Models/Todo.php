@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Models;
+namespace App\Models;
 
 use PDO;
 use PDOException;
@@ -9,37 +9,16 @@ class Todo
 {
 	public function getAllTodos(): bool|array
 	{
-		return Db::queryAll('
-			SELECT `todo_id`, `text`
-			FROM `todo`
-			ORDER BY `todo_id` DESC
-		');
+		$db = new Db();
+
+		return $db->getAllTodos();
 	}
 
 //	public function saveTodo(int|bool $id, array $todo): void
 	public function saveTodo(array $todo): void
 	{
-		$servername = "database";
-		$username = "test";
-		$password = "test";
-		$dbname = "todo_php_db";
-
-		try {
-			$pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-			$sql = $pdo->prepare(
-				"insert into todo set
-            text = :text"
-			);
-			$sql->execute(array(
-				':text' => $todo['text']
-			));
-
-			echo "New record created successfully";
-		} catch(PDOException $e) {
-			echo "<br>" . $e->getMessage();
-		}
+		$db = new Db();
+		$db->saveTodo($todo);
 
 //		if (!$id)
 //			Db::insert('todo', $todo);
