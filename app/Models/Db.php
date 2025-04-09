@@ -31,7 +31,8 @@ class Db
 		$statement = self::$connection->prepare($query);
 		$statement->execute($parameters);
 
-		return $statement->fetchAll();
+		return $statement->fetchAll(self::$connection::FETCH_CLASS);
+//		return $statement->fetchAll();
 	}
 
 	public static function query(string $query, array $parameters = array()): int

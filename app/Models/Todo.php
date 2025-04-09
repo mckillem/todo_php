@@ -7,8 +7,8 @@ class Todo
 	public function getAllTodos(): bool|array
 	{
 		return Db::queryAll('
-			SELECT *
-			FROM `todo` 
+			SELECT `todo_id`, `text`
+			FROM `todo`
 			ORDER BY `todo_id` DESC
 		');
 	}

@@ -23,11 +23,14 @@
                         <?php endforeach; ?>
                     <?php endforeach; ?>
                 </table>
+
                 <form method="post">
-                    <input type="hidden" name="todo_id" value="<?= $todo['todo_id'] ?>" />
+<!--                    <input type="hidden" name="todo_id" value="--><?php //= $todo['todo_id'] ?><!--" />-->
+                    <input type="hidden" name="todo_id" />
                     <label>
                         Nový úkol<br />
-                        <input type="text" name="text" required="required" value="<?= $todo['text'] ?>" />
+<!--                        <input type="text" name="text" required="required" value="--><?php //= $todo['text'] ?><!--" />-->
+                        <input type="text" name="text" required="required" />
                     </label><br />
                     <input type="submit" value="Přidat" />
                 </form>
