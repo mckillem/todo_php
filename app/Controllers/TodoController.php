@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Db;
 use App\Models\Todo;
 use ReflectionClass;
 
@@ -9,12 +10,12 @@ class TodoController
 {
 	public function __construct(
 		private string $view = "",
+		public array $todo = []
 	)
 	{}
 
 	public function index(): void
 	{
-		var_dump($_GET);
 		if (isset($_GET['id']) && $_GET['id'])
 		{
 			if ($_GET['action'] == 'delete')
@@ -22,7 +23,8 @@ class TodoController
 				$this->delete($_GET['id']);
 			} elseif ($_GET['action'] == 'edit')
 			{
-				$this->addTodo($_GET['id']);
+				$this->todo = Db::getTodoById($_GET['id']);
+				$this->addTodo();
 			}
 		} else {
 			$this->addTodo();
@@ -41,11 +43,17 @@ class TodoController
 
 	public function addTodo(?string $id = null): void
 	{
+		$this->view = 'edit';
+		$this->renderView();
+
 		$todoManager = new Todo();
 
 		if ($_POST) {
 //			if ($id) {
 				$todoManager->saveTodo($_POST);
+//			header("Location: /");
+//			header("Connection: close");
+//			exit;
 //			}
 		}
 	}
@@ -55,12 +63,6 @@ class TodoController
 		$todoManager = new Todo();
 		$todoManager->deleteTodo($id);
 	}
-
-//	public function update(string $id): void
-//	{
-//		$todoManager = new Todo();
-//		$todoManager->updateTodo($id);
-//	}
 
 	public function renderView(): void
 	{

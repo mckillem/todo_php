@@ -1,0 +1,8 @@
+<form method="post">
+	<input type="hidden" name="todo_id" value="<?php if (isset($this->todo['todo_id'])) echo($this->todo['todo_id']) ?>" />
+	<label>
+		Nový úkol<br />
+		<input type="text" name="text" required="required" value="<?php if (isset($this->todo['text'])) echo($this->todo['text']) ?>" />
+	</label><br />
+	<input type="submit" value="Přidat" />
+</form>

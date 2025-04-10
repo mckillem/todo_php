@@ -14,27 +14,15 @@
         <article>
             <section>
                 <h1>Úkolovník</h1>
+                <a href="?action=edit">Přidat úkol</a>
                 <ul>
                     <?php foreach($this->getAllTodos() as $todo): ?>
                         <li><?= $todo['text']; ?></li>
                         <a href="?id=<?=$todo['todo_id']?>&action=delete" class="trash"><i class="fas fa-trash fa-xs">Smazat</i></a>
-                        <a href="?id=<?=$todo['todo_id']?>&action=update" class="trash"><i class="fas fa-trash fa-xs">Upravit</i></a>
+                        <a href="?id=<?=$todo['todo_id']?>&action=edit" class="trash"><i class="fas fa-trash fa-xs">Upravit</i></a>
 
                     <?php endforeach; ?>
                 </ul>
-                <form method="post">
-                    <input type="hidden" name="todo_id" value="<?php if (isset($_POST['text'])) echo(htmlspecialchars($_POST['text'])); ?>" />
-<!--                    <input type="hidden" name="todo_id" value="--><?php //= $todo['todo_id'] ?><!--" />-->
-<!--                    <input type="hidden" name="todo_id" />-->
-                    <label>
-                        Nový úkol<br />
-                        <input type="text" name="text" required="required" value="<?php if (isset($_POST['text'])) echo(htmlspecialchars($_POST['text'])); ?>" />
-
-<!--                        <input type="text" name="text" required="required" value="--><?php //= $todo['text'] ?><!--" />-->
-<!--                        <input type="text" name="text" required="required" />-->
-                    </label><br />
-                    <input type="submit" value="Přidat" />
-                </form>
             </section>
         </article>
     </body>

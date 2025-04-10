@@ -11,15 +11,15 @@ class Todo
 		return $db->getAllTodos();
 	}
 
-//	public function saveTodo(int|bool $id, array $todo): void
 	public function saveTodo(array $todo): void
 	{
+		$id = $todo['todo_id'];
 		$db = new Db();
 
 		if (!$todo['todo_id'])
 			$db->saveTodo($todo);
 		else
-			$db->saveTodo($todo, $todo['todo_id']);
+			$db->saveTodo($todo, $id);
 	}
 
 	public function deleteTodo(string $id): void

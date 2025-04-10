@@ -80,8 +80,21 @@ class Db
 
 	public function deleteTodo(string $id): void
 	{
-//		$sql = self::$connection->prepare('DELETE FROM todo WHERE todo_id = ?');
 		$sql = self::$connection->prepare('DELETE FROM todo WHERE todo_id = ?');
 		$sql->execute(array($id));
+	}
+
+	public static function getTodoById(string $id)
+	{
+		$sql = self::$connection->prepare(
+			"SELECT todo_id, text
+			FROM todo
+			WHERE todo_id = :todo_id"
+		);
+		$sql->execute(array(
+			':todo_id' => $id
+		));
+
+		return $sql->fetch(self::$connection::FETCH_ASSOC);
 	}
 }
