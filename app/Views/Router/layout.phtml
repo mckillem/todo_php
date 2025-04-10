@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="cs-cz">
-	<head>
-		<base href="http://<?= $domain ?>" />
-		<meta charset="UTF-8" />
-		<title><?= $title ?></title>
-		<meta name="description" content="<?= $description ?>" />
-		<meta name="keywords" content="<?= $keywords ?>" />
-		<link rel="stylesheet" href="css/style.css" type="text/css"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	</head>
+    <head>
+<!--        <base href="http://--><?php //= $domain ?><!--" />-->
+        <meta charset="UTF-8" />
+        <title><?= $this->title ?></title>
+<!--        <meta name="description" content="--><?php //= $description ?><!--" />-->
+<!--        <meta name="keywords" content="--><?php //= $keywords ?><!--" />-->
+        <link rel="stylesheet" href="css/style.css" type="text/css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
 
-	<body>
-		<article>
-			<?php $this->controller->renderView(); ?>
-		</article>
-	</body>
+    <body>
+        <article>
+            <h1><?= $this->title ?></h1>
+            <?php $this->controller->renderView(); ?>
+        </article>
+    </body>
 </html>

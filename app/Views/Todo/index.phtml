@@ -1,11 +1,10 @@
-<section>
-	<h1>Úkolovník</h1>
-
-    <form method="post" id="form-todo">
-        <label>
-            Nový úkol<br />
-            <input type="text" name="text" required="required" value="<?php if (isset($_POST['text'])) echo(htmlspecialchars($_POST['text'])); ?>" />
-        </label><br />
-        <input type="submit" value="Přidat" />
-    </form>
-</section>
+<a href="edit?action=edit">Přidat úkol</a>
+<ul>
+    <?php foreach($this->getAllTodos() as $todo): ?>
+        <li>
+            <?= $todo['text']; ?>
+            <a href="?id=<?=$todo['todo_id']?>&action=delete" class="trash"><i class="fas fa-trash fa-xs">Smazat</i></a>
+            <a href="edit?id=<?=$todo['todo_id']?>&action=edit" class="trash"><i class="fas fa-trash fa-xs">Upravit</i></a>
+        </li>
+    <?php endforeach; ?>
+</ul>
