@@ -56,10 +56,10 @@ class Db
 					':text' => $todo['text'],
 					':todo_id' => $id
 				));
-
-				echo "New record created successfully";
+// todo: vytvořit systém zpráv, echo být nemůže kvůli hlavičce
+//				echo "New record created successfully";
 			} catch(PDOException $e) {
-				echo "<br>" . $e->getMessage();
+//				echo "<br>" . $e->getMessage();
 			}
 		} else {
 			try {
@@ -71,9 +71,9 @@ class Db
 					':text' => $todo['text']
 				));
 
-				echo "New record created successfully";
+//				echo "Record updated successfully";
 			} catch(PDOException $e) {
-				echo "<br>" . $e->getMessage();
+//				echo "<br>" . $e->getMessage();
 			}
 		}
 	}
@@ -84,7 +84,7 @@ class Db
 		$sql->execute(array($id));
 	}
 
-	public static function getTodoById(string $id)
+	public static function getTodoById(string $id): array
 	{
 		$sql = self::$connection->prepare(
 			"SELECT todo_id, text

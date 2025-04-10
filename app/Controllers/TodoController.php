@@ -4,15 +4,14 @@ namespace App\Controllers;
 
 use App\Models\Db;
 use App\Models\Todo;
-use ReflectionClass;
 
-class TodoController
+class TodoController extends Controller
 {
 	public function __construct(
-		private string $view = "",
 		public array $todo = []
-	)
-	{}
+	){
+		parent::__construct();
+	}
 
 	public function index(): void
 	{
@@ -26,12 +25,15 @@ class TodoController
 				$this->todo = Db::getTodoById($_GET['id']);
 				$this->addTodo();
 			}
-		} else {
+		} else
+		{
 			$this->addTodo();
 		}
-		$this->view = 'index';
 
-		$this->renderView();
+		if ($this->parseUrl() == '')
+		{
+			$this->view = 'index';
+		}
 	}
 
 	public function getAllTodos(): bool|array
@@ -41,20 +43,21 @@ class TodoController
 		return $todoManager->getAllTodos();
 	}
 
-	public function addTodo(?string $id = null): void
+	public function addTodo(): void
 	{
-		$this->view = 'edit';
-		$this->renderView();
+		if ($this->parseUrl() == 'edit') {
+			$this->view = 'edit';
+		}
 
 		$todoManager = new Todo();
 
 		if ($_POST) {
-//			if ($id) {
-				$todoManager->saveTodo($_POST);
-//			header("Location: /");
-//			header("Connection: close");
-//			exit;
-//			}
+			$todoManager->saveTodo($_POST);
+			$this->view = 'index';
+
+			header('Location: /');
+			header('Connection: close');
+			exit;
 		}
 	}
 
@@ -62,17 +65,5 @@ class TodoController
 	{
 		$todoManager = new Todo();
 		$todoManager->deleteTodo($id);
-	}
-
-	public function renderView(): void
-	{
-		if ($this->view) {
-			$reflect = new ReflectionClass(get_class($this));
-			$path = str_replace('Controllers', 'Views', str_replace('\\', '/', $reflect->getNamespaceName()));
-			$controllerName = str_replace('Controller', '', $reflect->getShortName());
-			$path = '../a' . ltrim($path, 'A') . '/' . $controllerName . '/' . $this->view . '.phtml';
-
-			require($path);
-		}
 	}
 }
