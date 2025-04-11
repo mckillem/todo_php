@@ -24,8 +24,15 @@ class Controller
 		}
 	}
 
-	public function parseUrl(): array|string
+	public function parseUrl(array $url): array|string
 	{
-		return str_replace('/', '', parse_url(array($_SERVER['REQUEST_URI'])[0])['path']);
+		return str_replace('/', '', parse_url($url[0])['path']);
+	}
+
+	public function redirect(string $url = ''): void
+	{
+		header("Location: /$url");
+		header("Connection: close");
+		exit;
 	}
 }

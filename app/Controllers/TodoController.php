@@ -13,7 +13,7 @@ class TodoController extends Controller
 		parent::__construct();
 	}
 
-	public function index(): void
+	public function index(string $parsedUrl): void
 	{
 		if (isset($_GET['id']) && $_GET['id'])
 		{
@@ -23,14 +23,14 @@ class TodoController extends Controller
 			} elseif ($_GET['action'] == 'edit')
 			{
 				$this->todo = Db::getTodoById($_GET['id']);
-				$this->addTodo();
+				$this->addTodo($parsedUrl);
 			}
 		} else
 		{
-			$this->addTodo();
+			$this->addTodo($parsedUrl);
 		}
 
-		if ($this->parseUrl() == '')
+		if ($parsedUrl == '')
 		{
 			$this->view = 'index';
 		}
@@ -43,9 +43,9 @@ class TodoController extends Controller
 		return $todoManager->getAllTodos();
 	}
 
-	public function addTodo(): void
+	public function addTodo(string $parsedUrl): void
 	{
-		if ($this->parseUrl() == 'edit') {
+		if ($parsedUrl == 'edit') {
 			$this->view = 'edit';
 		}
 
@@ -55,9 +55,7 @@ class TodoController extends Controller
 			$todoManager->saveTodo($_POST);
 			$this->view = 'index';
 
-			header('Location: /');
-			header('Connection: close');
-			exit;
+			$this->redirect('');
 		}
 	}
 
