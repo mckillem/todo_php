@@ -8,14 +8,14 @@ class UserManager
 
 	public function loadUser(): void
 	{
-//		echo self::$user = $_SESSION['user'] ?? null;
 		self::$user = $_SESSION['user'] ?? null;
 	}
 
-	public function login(): void
+	public function login(string $email, string $password): void
 	{
-		$user = [['email' => 'emil']];
-
-		$_SESSION['user'] = $user;
+		if ($email == 'm@m.cz' || $password == 'mm') {
+			$user = [['email' => $email, 'password' => $password]];
+			$_SESSION['user'] = $user;
+		}
 	}
 }

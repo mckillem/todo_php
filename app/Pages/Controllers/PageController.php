@@ -7,16 +7,18 @@ use App\Pages\Models\Page;
 
 class PageController extends Controller
 {
-	public function index(string $parsedUrl): void
+	public function index(array $parsedUrl): void
 	{
 		$page = new Page;
-		$loadedPage = $page->loadPage($parsedUrl);
+		$loadedPage = $page->loadPage($parsedUrl[0]);
 
 		if (!$loadedPage)
 			$this->redirect('chyba');
 
-		$controller = 'App\\' . $loadedPage['controller'];
+		$controller = 'App\\' . $loadedPage['controller'] . 'Controller';
 		$controller = new $controller;
+		array_shift($parsedUrl);
+//		$controller->callAction($parsedUrl);
 		$controller->index();
 
 		$this->pageData['controller'] = $controller;

@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Users\Models\UserManager;
 use ReflectionClass;
+use ReflectionMethod;
 
 class Controller
 {
@@ -17,6 +19,7 @@ class Controller
 		if ($this->view)
 		{
 			extract($this->pageData);
+//			extract($this->pageData, EXTR_PREFIX_ALL, "");
 
 			$reflect = new ReflectionClass(get_class($this));
 			$path = str_replace('Controllers', 'Views', str_replace('\\', '/', $reflect->getNamespaceName()));
@@ -27,15 +30,27 @@ class Controller
 		}
 	}
 
-	public function parseUrl(array $url): array|string
-	{
-		return str_replace('/', '', parse_url($url[0])['path']);
-	}
-
 	public function redirect(string $url = ''): void
 	{
 		header("Location: /$url");
 		header("Connection: close");
 		exit;
+	}
+
+	public function userAuth(): void
+	{
+		$user = UserManager::$user;
+
+		if (!$user) {
+			$this->redirect('prihlaseni');
+		}
+	}
+
+	public function callAction(string $parsedUrl)
+	{
+		$action = substr($parsedUrl, stripos($parsedUrl, '/') + 1);
+		$method = new ReflectionMethod(get_class($this), $action);
+		echo $method;
+		return ;
 	}
 }

@@ -1,0 +1,12 @@
+<form method="post">
+    <input type="hidden" name="user_id" value="<?php if (isset($this->user['user_id'])) echo($this->user['user_id']) ?>" />
+    <label>
+        Váš email<br />
+        <input type="email" name="email" required="required" value="<?php if (isset($this->user['email'])) echo($this->user['email']) ?>" />
+    </label><br />
+    <label>
+        Heslo<br />
+        <input type="password" name="password" required="required" value="<?php if (isset($this->user['password'])) echo($this->user['password']) ?>" />
+    </label><br />
+    <input type="submit" value="Odeslat" />
+</form>

@@ -16,15 +16,9 @@
                 <ul>
 					<?php foreach($pages as $page): ?>
                         <li>
-							<?= $page['title']; ?>
+							<a href=<?= $page['url']; ?>><?= $page['title']; ?></a>
                         </li>
 					<?php endforeach; ?>
-                </ul>
-                <ul>
-                    <li>O mě</li>
-                    <li>Tvorba</li>
-                    <li>Služby</li>
-                    <li>Kontakt</li>
                 </ul>
             </nav>
         </header>
