@@ -8,13 +8,16 @@ class Controller
 {
 	public function __construct(
 		protected string $view = "",
-		public string $title = 'Úkolovník'
+		public string $title = 'Úkolovník',
+		protected array $pageData = []
 	){}
 
 	public function renderView(): void
 	{
 		if ($this->view)
 		{
+			extract($this->pageData);
+
 			$reflect = new ReflectionClass(get_class($this));
 			$path = str_replace('Controllers', 'Views', str_replace('\\', '/', $reflect->getNamespaceName()));
 			$controllerName = str_replace('Controller', '', $reflect->getShortName());

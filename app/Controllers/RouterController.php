@@ -2,13 +2,12 @@
 
 namespace App\Controllers;
 
-use App\Authenticator\Controllers\AuthenticatorController;
+use App\Pages\Controllers\PageController;
 use App\Users\Models\UserManager;
 
 class RouterController extends Controller
 {
-	protected TodoController $controller;
-	protected AuthenticatorController $authenticatorController;
+	protected PageController $controller;
 
 	public function __construct()
 	{
@@ -21,13 +20,8 @@ class RouterController extends Controller
 		$userManager = new UserManager();
 		$userManager->loadUser();
 
-		if ($parsedUrl === 'aministrace') {
-			$this->authenticatorController = new AuthenticatorController();
-			$this->authenticatorController->index($parsedUrl);
-		} else {
-			$this->controller = new TodoController();
-			$this->controller->index($parsedUrl);
-		}
+		$this->controller = new PageController();
+		$this->controller->index($parsedUrl);
 
 		$this->view = 'layout';
 	}
