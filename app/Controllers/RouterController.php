@@ -23,6 +23,8 @@ class RouterController extends Controller
 		$this->controller = new PageController();
 		$this->controller->index($parsedUrl);
 
+		$this->pageData['pages'] = $this->controller->getAllPages();
+
 		$this->view = 'layout';
 	}
 }

@@ -25,4 +25,11 @@ class PageController extends Controller
 
 		$this->view = 'index';
 	}
+
+	public function getAllPages(): bool|array
+	{
+		$pageManager = new Page();
+
+		return $pageManager->getAllPages();
+	}
 }

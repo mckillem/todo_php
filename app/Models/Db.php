@@ -111,4 +111,17 @@ class Db
 
 		return $sql->fetch(self::$connection::FETCH_ASSOC);
 	}
+
+	public function getAllPages(): array
+	{
+		$sql = self::$connection->prepare(
+			'
+			SELECT *
+			FROM `page`
+		'
+		);
+		$sql->execute();
+
+		return $sql->fetchAll(self::$connection::FETCH_ASSOC);
+	}
 }

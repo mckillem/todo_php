@@ -13,4 +13,11 @@ class Page
 
 		return $db->getPageByUrl($parsedUrl);
 	}
+
+	public function getAllPages(): array|false
+	{
+		$db = new Db();
+
+		return $db->getAllPages();
+	}
 }
