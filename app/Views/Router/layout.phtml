@@ -11,9 +11,22 @@
     </head>
 
     <body>
+        <header>
+            <nav>
+                <ul>
+                    <li>O mě</li>
+                    <li>Tvorba</li>
+                    <li>Služby</li>
+                    <li>Kontakt</li>
+                </ul>
+            </nav>
+        </header>
         <article>
             <h1><?= $this->title ?></h1>
             <?php $this->controller->renderView(); ?>
         </article>
+        <footer>
+            Copyright
+        </footer>
     </body>
 </html>
