@@ -3,25 +3,22 @@
 namespace App\Authenticator\Controllers;
 
 use App\Controllers\Controller;
-use App\Users\Models\UserManager;
 
 class AuthenticatorController extends Controller
 {
-	public function index(string $parsedUrl): void
+	public function index(): void
 	{
-		if (UserManager::$user)
-		{
-			$this->redirect('administrace');
-		}
+		$this->userAuth();
 
-		if (isset($_GET['isLoggedIn']) && $_GET['isLoggedIn'])
-		{
-			$userManager = new UserManager();
-			$userManager->login();
+		$this->view = 'index';
+	}
 
-			$this->redirect('administrace');
-		}
-
-		$this->view = 'login';
+	/**
+	 * @Action
+	 */
+	public function logout(): void
+	{
+		session_destroy();
+		$this->redirect('prihlaseni');
 	}
 }

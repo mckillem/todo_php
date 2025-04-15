@@ -18,7 +18,7 @@ class PageController extends Controller
 		$controller = 'App\\' . $loadedPage['controller'] . 'Controller';
 		$controller = new $controller;
 		array_shift($parsedUrl);
-//		$controller->callAction($parsedUrl);
+		$controller->callAction($parsedUrl);
 		$controller->index();
 
 		$this->pageData['controller'] = $controller;
