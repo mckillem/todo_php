@@ -112,6 +112,20 @@ class Db
 		return $sql->fetch(self::$connection::FETCH_ASSOC);
 	}
 
+	public static function getPageById(string $id): array|false
+	{
+		$sql = self::$connection->prepare(
+			'SELECT *
+			FROM page
+			WHERE page_id = :page_id'
+		);
+		$sql->execute(array(
+			':page_id' => $id
+		));
+
+		return $sql->fetch(self::$connection::FETCH_ASSOC);
+	}
+
 	public function getAllPages(): array
 	{
 		$sql = self::$connection->prepare(
@@ -123,5 +137,59 @@ class Db
 		$sql->execute();
 
 		return $sql->fetchAll(self::$connection::FETCH_ASSOC);
+	}
+
+	public function save(array $page, ?string $id = null): void
+	{
+		if ($id)
+		{
+			try {
+				$sql = self::$connection->prepare(
+					"update page set
+            title = :title, 
+            content = :content, 
+            url = :url, 
+            description = :description, 
+            controller = :controller 
+            WHERE page_id = :page_id"
+				);
+				$sql->execute(array(
+					':title' => $page['title'],
+					':content' => $page['content'],
+					':url' => $page['url'],
+					':description' => $page['description'],
+					':controller' => $page['controller'],
+					':page_id' => $id
+				));
+// todo: vytvořit systém zpráv, echo být nemůže kvůli hlavičce
+//				echo "New record created successfully";
+			} catch(PDOException $e) {
+//				echo "<br>" . $e->getMessage();
+			}
+		} else {
+			try {
+				$sql = self::$connection->prepare(
+					"
+			insert into page set
+            title = :title, 
+            content = :content, 
+            url = :url, 
+            description = :description, 
+            controller = :controller
+            "
+				);
+				$sql->execute(array(
+					':title' => $page['title'],
+					':content' => $page['content'],
+					':url' => $page['url'],
+					':description' => $page['description'],
+					':controller' => $page['controller']
+				));
+
+//				echo "Record updated successfully";
+			} catch(PDOException $e) {
+//				echo "<br>" . $e->getMessage();
+			}
+		}
 	}
 }

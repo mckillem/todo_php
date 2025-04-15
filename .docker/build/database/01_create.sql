@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS page (
 INSERT INTO `page` (`title`, `content`, `url`, `description`, `controller`) VALUES
 #                                                                                    ('Úvod', '<p>Vítejte na našem webu!</p>\r\n\r\n<p>Tento web je postaven na <strong>jednoduchém MVC frameworku v PHP</strong>. Toto je úvodní článek, načtený z databáze.</p>', 'uvod', 'Úvodní článek na webu v MVC v PHP', NULL),
                                                                                    ('Přihlášení', NULL, 'prihlaseni', 'Přihlášení do uživatelského účtu.', 'Authenticator\\Controllers\\Login'),
-                                                                                   ('Stránka nebyla nalezena', '<p>Litujeme, ale požadovaná stránka nebyla nalezena. Zkontrolujte prosím URL adresu.</p>', 'chyba', 'Stránka nebyla nalezena.', 'Controllers\\ErrorController'),
-                                                                                   ('Kontaktní formulář', NULL, 'kontakt', 'Kontaktní formulář', 'Controllers\\ContactController'),
-                                                                                   ('Služby', '<p>Tvorba webů převážně backend v PHP.</p>', 'sluzby', 'Služby', 'Controllers\\ServiceController'),
-                                                                                   ('Tvorba', '<a href="https://github.com/mckillem" target="_blank">Odkaz na můj GitHub profil</a>', 'tvorba', 'Tvorba', 'Controllers\\CreationController'),
+                                                                                   ('Stránka nebyla nalezena', '<p>Litujeme, ale požadovaná stránka nebyla nalezena. Zkontrolujte prosím URL adresu.</p>', 'chyba', 'Stránka nebyla nalezena.', 'Controllers\\Error'),
+                                                                                   ('Kontaktní formulář', NULL, 'kontakt', 'Kontaktní formulář', 'Controllers\\Contact'),
+                                                                                   ('Služby', '<p>Tvorba webů převážně backend v PHP.</p>', 'sluzby', 'Služby', 'Controllers\\Service'),
+                                                                                   ('Tvorba', '<a href="https://github.com/mckillem" target="_blank">Odkaz na můj GitHub profil</a>', 'tvorba', 'Tvorba', 'Controllers\\Creation'),
+                                                                                ('Editor', NULL, 'editor', 'Editor stránek', 'Pages\\Controllers\\Editor'),
                                                                                    ('Administrace webu', NULL, 'administrace', 'Administrace webu', 'Authenticator\\Controllers\\Authenticator');

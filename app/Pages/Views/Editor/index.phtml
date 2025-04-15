@@ -1,0 +1,34 @@
+<form method="post">
+<!--	<input type="hidden" name="page_id" value="--><?php //if (isset($this->page['page_id'])) echo($this->page['page_id']) ?><!--" />-->
+	<label for="pages">Stránky</label>
+	<select name="pages" id="pages">
+		<option value="">--- Vyber stránku ---</option>
+<!--		--><?php //if (isset($this->page['page_id'])) echo($this->page['page_id']) ?>
+		<?php foreach($pages as $page): ?>
+			<?php $_GET['page_id'] = $page['page_id']; ?>
+			<option value=<?= $page['page_id']; ?>><?php echo($page['title']); ?></option>
+		<?php endforeach; ?>
+	</select>
+	<label>
+		Název<br />
+		<input type="text" name="title" required="required" value="<?php if (isset($this->page['title'])) echo($this->page['title']) ?>" />
+	</label><br />
+	<label>
+		Obsah<br />
+		<input type="text" name="content" required="required" value="<?php if (isset($this->page['content'])) echo($this->page['content']) ?>" />
+	</label><br />
+	<label>
+		Url<br />
+		<input type="text" name="url" required="required" value="<?php if (isset($this->page['url'])) echo($this->page['url']) ?>" />
+	</label><br />
+	<label>
+		Popis<br />
+		<input type="text" name="description" required="required" value="<?php if (isset($this->page['description'])) echo($this->page['description']) ?>" />
+	</label><br />
+	<label>
+		Kontroler<br />
+		<input type="text" name="controller" required="required" value="<?php if (isset($this->page['controller'])) echo($this->page['controller']) ?>" />
+	</label><br />
+	captcha
+	<input type="submit" value="Uložit" />
+</form>
