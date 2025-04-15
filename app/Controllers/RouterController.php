@@ -8,7 +8,8 @@ use App\Users\Models\UserManager;
 class RouterController extends Controller
 {
 	protected TodoController $controller;
-//	protected AuthenticatorController $controller;
+	protected AuthenticatorController $authenticatorController;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -20,10 +21,14 @@ class RouterController extends Controller
 		$userManager = new UserManager();
 		$userManager->loadUser();
 
-		$this->controller = new TodoController();
-//		$this->controller = new AuthenticatorController();
-		$this->controller->index($parsedUrl);
-//
+		if ($parsedUrl === 'aministrace') {
+			$this->authenticatorController = new AuthenticatorController();
+			$this->authenticatorController->index($parsedUrl);
+		} else {
+			$this->controller = new TodoController();
+			$this->controller->index($parsedUrl);
+		}
+
 		$this->view = 'layout';
 	}
 }

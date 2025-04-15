@@ -7,25 +7,21 @@ use App\Users\Models\UserManager;
 
 class AuthenticatorController extends Controller
 {
-	public function index(): void
+	public function index(string $parsedUrl): void
 	{
-//		var_dump($_GET);
-
 		if (UserManager::$user)
 		{
 			$this->redirect('administrace');
 		}
-
-
 
 		if (isset($_GET['isLoggedIn']) && $_GET['isLoggedIn'])
 		{
 			$userManager = new UserManager();
 			$userManager->login();
 
-			$this->redirect('');
+			$this->redirect('administrace');
 		}
 
-		$this->view = 'index';
+		$this->view = 'login';
 	}
 }
