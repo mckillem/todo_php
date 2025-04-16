@@ -98,7 +98,7 @@ class Db
 		return $sql->fetch(self::$connection::FETCH_ASSOC);
 	}
 
-	public function getPageByUrl(string $parsedUrl): array|false
+	public static function getPageByUrl(string $parsedUrl): array|false
 	{
 		$sql = self::$connection->prepare(
 			'SELECT *

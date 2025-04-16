@@ -11,17 +11,21 @@ class EditorController extends Controller
 	protected PageController $controller;
 	public array $page = [];
 
-	public function index(): void
+	public function index(string $url = ''): void
 	{
 		$this->controller = new PageController();
-		$this->pageData['pages'] = $this->controller->getAllPages();
+//		$this->pageData['pages'] = $this->controller->getAllPages();
+//		echo 'neco';
 
-		echo $_GET['page_id'];
-		if (isset($_GET['page_id']) && $_GET['page_id'])
+//		var_dump($_GET);
+//		echo $_GET['id'];
+//		if (isset($_GET['page_id']) && $_GET['page_id'])
+		if ($url)
 		{
 			if (!empty($_POST) && $_POST['title'] != '' && $_POST['content'] != '' && $_POST['url'] != '' && $_POST['description'] != '' && $_POST['controller'] != '')
 			{
-				$this->page = Db::getPageById($_GET['page_id']);
+
+				$this->page = Db::getPageByUrl($url);
 //				$this->redirect('editor');
 				$editor = new Editor();
 				$editor->save($_POST, $_GET['page_id']);

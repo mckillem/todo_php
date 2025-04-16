@@ -1,14 +1,14 @@
 <form method="post">
-<!--	<input type="hidden" name="page_id" value="--><?php //if (isset($this->page['page_id'])) echo($this->page['page_id']) ?><!--" />-->
-	<label for="pages">Stránky</label>
-	<select name="pages" id="pages">
-		<option value="">--- Vyber stránku ---</option>
+	<input type="hidden" name="page_id" value="<?php if (isset($this->page['page_id'])) echo($this->page['page_id']) ?>" />
+<!--	<label for="pages">Stránky</label>-->
+<!--	<select name="pages" id="pages">-->
+<!--		<option value="">--- Vyber stránku ---</option>-->
 <!--		--><?php //if (isset($this->page['page_id'])) echo($this->page['page_id']) ?>
-		<?php foreach($pages as $page): ?>
-			<?php $_GET['page_id'] = $page['page_id']; ?>
-			<option value=<?= $page['page_id']; ?>><?php echo($page['title']); ?></option>
-		<?php endforeach; ?>
-	</select>
+<!--		--><?php //foreach($pages as $page): ?>
+<!--			--><?php //$_GET['page_id'] = $page['page_id']; ?>
+<!--			<option value=--><?php //= $page['page_id']; ?><!-->--><?php //echo($page['title']); ?><!--</option>-->
+<!--		--><?php //endforeach; ?>
+<!--	</select>-->
 	<label>
 		Název<br />
 		<input type="text" name="title" required="required" value="<?php if (isset($this->page['title'])) echo($this->page['title']) ?>" />

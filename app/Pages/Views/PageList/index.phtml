@@ -1,0 +1,9 @@
+<ul>
+	<?php foreach($pages as $page): ?>
+		<li>
+			<a href=<?= $page['url']; ?>><?php echo($page['title']); ?></a>
+<!--			<a href="editor/?id=--><?php //= $page['page_id']; ?><!--">Upravit</a>-->
+			<a href="editor/index/<?= $page['url']; ?>">Upravit</a>
+		</li>
+	<?php endforeach; ?>
+</ul>

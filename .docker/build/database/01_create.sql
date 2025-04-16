@@ -31,4 +31,5 @@ INSERT INTO `page` (`title`, `content`, `url`, `description`, `controller`) VALU
                                                                                    ('Služby', '<p>Tvorba webů převážně backend v PHP.</p>', 'sluzby', 'Služby', 'Controllers\\Service'),
                                                                                    ('Tvorba', '<a href="https://github.com/mckillem" target="_blank">Odkaz na můj GitHub profil</a>', 'tvorba', 'Tvorba', 'Controllers\\Creation'),
                                                                                 ('Editor', NULL, 'editor', 'Editor stránek', 'Pages\\Controllers\\Editor'),
+                                                                                ('Seznam stránek', NULL, 'seznam-stranek', 'Seznam stránek', 'Pages\\Controllers\\PageList'),
                                                                                    ('Administrace webu', NULL, 'administrace', 'Administrace webu', 'Authenticator\\Controllers\\Authenticator');
