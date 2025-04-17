@@ -15,13 +15,19 @@ class PageController extends Controller
 		if (!$loadedPage)
 			$this->redirect('chyba');
 
-		$controller = 'App\\' . $loadedPage['controller'] . 'Controller';
-		$controller = new $controller;
-		array_shift($parsedUrl);
-		$controller->callAction($parsedUrl);
-		$controller->index();
+		if ($loadedPage['controller'])
+		{
+			$controller = 'App\\' . $loadedPage['controller'] . 'Controller';
+			$controller = new $controller;
+			array_shift($parsedUrl);
+			$controller->callAction($parsedUrl);
+			$controller->index();
+			$this->pageData['controller'] = $controller;
+		} else
+		{
+			$this->pageData['controller'] = null;
+		}
 
-		$this->pageData['controller'] = $controller;
 		$this->pageData['title'] = $loadedPage['title'];
 		$this->pageData['content'] = $loadedPage['content'];
 

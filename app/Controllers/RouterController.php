@@ -20,6 +20,9 @@ class RouterController extends Controller
 		$userManager = new UserManager();
 		$userManager->loadUser();
 
+		if (empty($parsedUrl[0]))
+			$parsedUrl[0] = 'uvod';
+
 		$this->controller = new PageController();
 		$this->controller->index($parsedUrl);
 

@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS page (
 );
 
 INSERT INTO `page` (`title`, `content`, `url`, `description`, `controller`) VALUES
-#                                                                                    ('Úvod', '<p>Vítejte na našem webu!</p>\r\n\r\n<p>Tento web je postaven na <strong>jednoduchém MVC frameworku v PHP</strong>. Toto je úvodní článek, načtený z databáze.</p>', 'uvod', 'Úvodní článek na webu v MVC v PHP', NULL),
+                                                                                   ('Úvod', '<p>Vítejte na mé stránce.</p>\r\n\r\n<p>Najdete na ní ukázku mé tvorby a nabídku služeb spolu s kontaktem.</p>', 'uvod', 'Úvodní stránka', NULL),
                                                                                    ('Přihlášení', NULL, 'prihlaseni', 'Přihlášení do uživatelského účtu.', 'Authenticator\\Controllers\\Login'),
                                                                                    ('Stránka nebyla nalezena', '<p>Litujeme, ale požadovaná stránka nebyla nalezena. Zkontrolujte prosím URL adresu.</p>', 'chyba', 'Stránka nebyla nalezena.', 'Controllers\\Error'),
                                                                                    ('Kontaktní formulář', NULL, 'kontakt', 'Kontaktní formulář', 'Controllers\\Contact'),
