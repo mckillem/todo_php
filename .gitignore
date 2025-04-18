@@ -1,0 +1,11 @@
+vendor/bin/
+vendor/composer/
+vendor/mpdf/
+vendor/myclabs/
+vendor/paragonie/
+vendor/phpstan/
+vendor/psr/
+vendor/setasign/
+vendor/autoload.php
+.idea/
+composer.lock
