@@ -2,15 +2,29 @@
 
 namespace App\Controllers;
 
+use DateTime;
+
 class ContactController extends Controller
 {
 	public function index(): void
 	{
+		$this->pageData['email'] = $_POST['email'] ?? '';
+		$this->pageData['text'] = $_POST['text'] ?? '';
+
 		if ($_POST)
 		{
-			if (isset($_POST['email']) && $_POST['email'] && isset($_POST['text']) && $_POST['text'])
+			if (isset($_POST['email'], $_POST['text'], $_POST['year']) && $_POST['email'] && $_POST['text'] && $_POST['year'] === new DateTime()->format('Y'))
+			{
 				$this->sendEmail($_POST['email'], $_POST['text']);
-		} else {
+			}
+			else
+			{
+				echo "Špatný rok.";
+			}
+		}
+		else
+		{
+//			todo: zobrazuje se dvakrát při načtení stránky, kde by nemělo vůbec a i po odeslání formuláře
 			echo "Formulář není správně vyplněn.";
 		}
 
@@ -33,11 +47,19 @@ class ContactController extends Controller
 
 		$success = mb_send_mail($to, $subject, $message, $headers);
 
-		if (!$success) {
-			$errorMessage = error_get_last()['message'];
-			echo "Email se nepodařilo odeslat.";
-		} else {
-			echo "Email byl odeslán.";
+		if (!$success)
+		{
+			$this->pageData['errorMessage'] = error_get_last()['message'];
+			$this->pageData['message'] = "Email se nepodařilo odeslat.";
+		}
+		else
+		{
+			$this->pageData['message'] = "Email byl odeslán.";
+
+			/**
+			 * potřeba přesměrovat, aby se mail neposlal dvakrát a aby se nevyplnil formulář
+			 */
+			$this->redirect('kontakt');
 		}
 	}
 }

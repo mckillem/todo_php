@@ -1,13 +1,16 @@
+<?= $message ?? '' ?>
 <form method="post">
-    <input type="hidden" name="contact_id" value="<?php if (isset($this->contact['contact_id'])) echo($this->contact['contact_id']) ?>" />
     <label>
         Váš email<br />
-        <input type="email" name="email" required="required" value="<?php if (isset($this->contact['email'])) echo($this->contact['email']) ?>" />
+        <input type="email" name="email" required="required" value="<?= htmlspecialchars($email) ?>" />
     </label><br />
     <label>
         Zpráva<br />
-        <input type="text" name="text" required="required" value="<?php if (isset($this->contact['text'])) echo($this->contact['text']) ?>" />
+        <textarea name="text" required="required"><?= htmlspecialchars($text) ?></textarea>
     </label><br />
-    captcha
+    <label>
+        Jaký je dnes rok?<br />
+        <input type="text" name="year" required="required" />
+    </label><br />
     <input type="submit" value="Odeslat" />
 </form>
