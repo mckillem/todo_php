@@ -6,14 +6,24 @@ class ContactController extends Controller
 {
 	public function index(): void
 	{
-//		var_dump($_POST ?? 'prazdno');
-		if (isset($_POST))
-			$this->sendEmail($_POST['email'], $_POST['text']);
+		if ($_POST)
+		{
+			if (isset($_POST['email']) && $_POST['email'] && isset($_POST['text']) && $_POST['text'])
+				$this->sendEmail($_POST['email'], $_POST['text']);
+		} else {
+			echo "Formulář není správně vyplněn.";
+		}
+
 		$this->view = 'index';
 	}
 
 	private function sendEmail(string $email, string $text): void
 	{
+		$from = 'mckillem23@gmail.com';
+		ini_set("SMTP", "smtp.gmail.com");
+		ini_set("sendmail_from", $from);
+		ini_set("smtp_port", "25");
+
 		$to      = 'mckillem@tuta.io';
 		$subject = 'Email z webu';
 		$message = $text;
@@ -21,11 +31,13 @@ class ContactController extends Controller
 			'Reply-To: ' . $email . "\n" .
 			'X-Mailer: PHP/' . phpversion();
 
-		$success = mail($to, $subject, $message, $headers);
-		var_dump($success);
+		$success = mb_send_mail($to, $subject, $message, $headers);
+
 		if (!$success) {
 			$errorMessage = error_get_last()['message'];
-			var_dump($errorMessage);
+			echo "Email se nepodařilo odeslat.";
+		} else {
+			echo "Email byl odeslán.";
 		}
 	}
 }

@@ -9,6 +9,8 @@ Autoloader::register();
 
 session_start();
 
+mb_internal_encoding("UTF-8");
+
 $db = new Db();
 $db->connect("database", "test", "test", "todo_php_db");
 
