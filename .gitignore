@@ -1,11 +1,7 @@
 vendor/bin/
 vendor/composer/
-vendor/mpdf/
-vendor/myclabs/
-vendor/paragonie/
 vendor/phpstan/
-vendor/psr/
-vendor/setasign/
+vendor/twbs/
 vendor/autoload.php
 .idea/
 composer.lock
