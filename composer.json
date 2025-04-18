@@ -17,5 +17,11 @@
   },
   "require-dev": {
     "phpstan/phpstan": "^1.11"
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "rm -rf www/css/bootstrap",
+      "cp -R vendor/twbs/bootstrap/dist www/css/bootstrap"
+    ]
   }
 }
