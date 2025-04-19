@@ -1,8 +1,13 @@
 services:
   php:
+    platform: "linux/amd64"
     container_name: todo_php
     image: mckillem/todo_php
-    build: build/php
+    build:
+      context: build/php
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
     volumes:
       - ../:/var/www/html
     ports:
@@ -16,7 +21,11 @@ services:
   database:
     container_name: todo_php_db
     image: mckillem/todo_php_db
-    build: build/database
+    build:
+      context: build/database
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
     ports:
       - "3308:3306"
     environment:
